@@ -32,6 +32,13 @@ public class ProductController {
      */
     @GetMapping("/list")
     public ResultVo list() {
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         List<ProductInfo> productInfos = productSrv.findUpAll();
         List<Integer> categoryTypes = productInfos.stream().map(ProductInfo::getCategoryType).collect(Collectors.toList());
         if (null == categoryTypes) {

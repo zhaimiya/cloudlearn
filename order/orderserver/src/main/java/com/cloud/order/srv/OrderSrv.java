@@ -4,4 +4,5 @@ import com.cloud.order.dataobject.dto.OrderDTO;
 
 public interface OrderSrv {
     public OrderDTO creat(OrderDTO orderDTO);
+    OrderDTO finish(String orderId);
 }
