@@ -13,16 +13,20 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 @Component
 public class RateLimitFilter extends ZuulFilter {
 
+    // 一秒100个令牌
     private static final RateLimiter RATE_LIMITER = RateLimiter.create(100);
 
+    // 是否执行过滤
     @Override
     public boolean shouldFilter() {
         return true;
     }
 
+    // 具体逻辑
     @Override
     public Object run() throws ZuulException {
         if (!RATE_LIMITER.tryAcquire()) {
+            //  自定义的异常
             throw new RateLimitException("已达上限，开始限流");
         }
         return null;
@@ -32,11 +36,15 @@ public class RateLimitFilter extends ZuulFilter {
         super();
     }
 
+    // 过滤类型
     @Override
     public String filterType() {
         return PRE_TYPE;
     }
 
+
+    // 常量复用于org.springframework.cloud.netflix.zuul.filters.support.FilterConstants
+    // 执行顺序，在PreDecorationFilter之前执行
     @Override
     public int filterOrder() {
         return SERVLET_DETECTION_FILTER_ORDER - 1;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-@EnableBinding(StreamClient.class)
+@EnableBinding(StreamClient.class) //定义好的接口
 @Slf4j
 public class StreamReceiver {
 
